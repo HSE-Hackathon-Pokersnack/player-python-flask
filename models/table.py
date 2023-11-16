@@ -16,8 +16,10 @@ class Table:
 
     def __init__(self, table: dict):
         # self.communityCards = table["communityCards"]
+        self.communityCards = []  # reset community cards
         for card in table["communityCards"]:
             self.communityCards.append(Card(card))
+        self.players = []  # reset players
         for player in table["players"]:
             self.players.append(Player(player))
         self.round = table["round"]

@@ -4,9 +4,10 @@ from models.card import Card
 from typing import List
 
 
-def check_flush(card1, card2, comm_cards) -> bool:
+# raise multiplier if four cards of the same suit
+def check_flush(card1: Card, card2: Card, comm_cards: List[Card]) -> bool:
     all_cards = [card1, card2]
-    all_cards.append(comm_cards)
+    all_cards.extend(comm_cards)
     counter: int = 0
 
     for i in range(1, len(all_cards)):
@@ -16,6 +17,22 @@ def check_flush(card1, card2, comm_cards) -> bool:
             return True
 
     return False
+
+
+def checkStraight(card1: Card, card2: Card, comm_Cards: List[Card]):
+    cards = [card1, card2]
+    cards.extend(comm_Cards)
+    ranks = [card.rank.value for card in cards]
+
+    # Sort the ranks
+    ranks.sort(key=lambda x: cards.rank[x].value)
+
+    # Check for consecutive ranks
+    for i in range(len(ranks) - 1):
+        if cards.rank[cards.rank[i]].value + 1 != cards.rank[ranks[i + 1]].value:
+            return False
+
+    return True
 
 
 # Philip: "Reimt sich ja: 'Ist schon Witzig mit 70 :D !!!'"
@@ -32,7 +49,7 @@ def strat_0(table: Table) -> int:
 
 
 def strat_1(table: Table) -> int:
-    player = table.players[2]
+    player = table.players[table.activePlayer]
     multiplier = 1
     matches = 0
     matchesInCommunityCards = 0
@@ -71,19 +88,14 @@ def strat_1(table: Table) -> int:
         case _:
             multiplier = 1
 
-    if check_flush(card1, card2, cCards):
-        multiplier = 50
+    # if check_flush(card1, card2, cCards):
+    #     multiplier = 50
 
     return multiplier * table.minimumBet
-
-
-def checkStraight(card1: Card, card2: Card, comm_Cards: List[Card]):
-    result = 0
-    return result
 
 
 def decide(table: Table) -> Bet:
     # call first strategy
     # strat1_bet = strat_1(table)
-    chips = strat_0(table)
+    chips = strat_1(table)
     return Bet(chips)

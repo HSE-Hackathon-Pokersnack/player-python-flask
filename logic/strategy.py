@@ -10,12 +10,12 @@ def check_flush(card1: Card, card2: Card, comm_cards: List[Card]) -> bool:
     all_cards.extend(comm_cards)
 
     counter: int = 0
-
-    for i in range(1, len(all_cards)):
-        if all_cards[i - 1].suit == all_cards[i].suit:
-            counter += 1
-        if counter == 5:
-            return True
+    if len(all_cards) == 5:
+        for i in range(1, len(all_cards)):
+            if all_cards[i - 1].suit == all_cards[i].suit:
+                counter += 1
+            if counter == 5:
+                return True
 
     return False
 
@@ -81,7 +81,7 @@ def strat_1(table: Table) -> int:
         case 2:
             multiplier = 2
             # Full House
-            if matchesInCommunityCards >= 1:
+            if matchesInCommunityCards >= 2:
                 multiplier = 4
         # four of a kind
         case 3:
@@ -92,10 +92,11 @@ def strat_1(table: Table) -> int:
     # if checkStraight(card1, card2, cCards):
     #     multiplier = 5
 
-    # if check_flush(card1, card2, cCards):
-    #     return player.stack
+    if check_flush(card1, card2, cCards):
+        return player.stack
 
     if multiplier == 1:
+        # print(int(0.5 * player.stack))
         return int(0.5 * player.stack)
 
     # print(multiplier, " ", table.minimumBet)
@@ -105,5 +106,5 @@ def strat_1(table: Table) -> int:
 def decide(table: Table) -> Bet:
     # call first strategy
     # strat1_bet = strat_1(table)
-    chips = strat_1(table)
+    chips = strat_0(table)
     return Bet(chips)

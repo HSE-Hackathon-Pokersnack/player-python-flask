@@ -8,6 +8,7 @@ from typing import List
 def check_flush(card1: Card, card2: Card, comm_cards: List[Card]) -> bool:
     all_cards = [card1, card2]
     all_cards.extend(comm_cards)
+
     counter: int = 0
 
     for i in range(1, len(all_cards)):
@@ -72,26 +73,33 @@ def strat_1(table: Table) -> int:
     match matches:
         # pair
         case 1:
-            multiplier = 2
+            multiplier = 1.5
             # Full House
             if matchesInCommunityCards == 2:
-                multiplier = 10
+                multiplier = 4
         # three of a kind
         case 2:
-            multiplier = 5
+            multiplier = 2
             # Full House
             if matchesInCommunityCards >= 1:
-                multiplier = 10
+                multiplier = 4
         # four of a kind
         case 3:
-            multiplier = 50
+            multiplier = 10
         case _:
             multiplier = 1
 
-    # if check_flush(card1, card2, cCards):
-    #     multiplier = 50
+    # if checkStraight(card1, card2, cCards):
+    #     multiplier = 5
 
-    return multiplier * table.minimumBet
+    # if check_flush(card1, card2, cCards):
+    #     return player.stack
+
+    if multiplier == 1:
+        return int(0.5 * player.stack)
+
+    # print(multiplier, " ", table.minimumBet)
+    return int(multiplier * table.minimumBet)
 
 
 def decide(table: Table) -> Bet:

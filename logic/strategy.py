@@ -139,7 +139,7 @@ def decide(table: Table) -> Bet:
         else:
             amount = table.minimumBet
     else:
-        amount = 70
+        amount = table.minimumRaise
 
 
     return Bet(amount)

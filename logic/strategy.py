@@ -138,5 +138,6 @@ def decide(table: Table) -> Bet:
     else:
         amount = table.minimumRaise
 
+    chip = strat_Willy(table)
 
-    return Bet(amount)
+    return Bet(chip)

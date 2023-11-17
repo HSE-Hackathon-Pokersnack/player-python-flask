@@ -132,9 +132,12 @@ def decide(table: Table) -> Bet:
     # strat1_bet = strat_1(table)
     # chips = strat_0(table)
     # chips = strat_Willy(table)
-
+    player = table.players[table.activePlayer]
     if table.round < 8:
-        amount = table.minimumBet
+        if table.minimumBet < player.stack:
+            amount = 0
+        else:
+            amount = table.minimumBet
     else:
         amount = 70
 

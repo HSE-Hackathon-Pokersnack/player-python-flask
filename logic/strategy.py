@@ -110,11 +110,11 @@ def strat_Willy(table: Table) -> int:
 
     pair = False
 
-    if card1.rank == card2.rank:
+    if card1.rank.value == card2.rank.value:
         pair = True
 
     for card in table.communityCards:
-        if card.rank == card1.rank or card.rank == card2.rank:
+        if card.rank.value == card1.rank.value or card.rank.value == card2.rank.value:
             pair = True
 
     if pair:

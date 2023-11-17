@@ -30,5 +30,5 @@ nb-configuration.xml
 
 # Local environment
 .env
-.pyc
+*.pyc
 .venv

@@ -103,8 +103,33 @@ def strat_1(table: Table) -> int:
     return int(multiplier * table.minimumBet)
 
 
+def strat_Willy(table: Table) -> int:
+    player = table.players[table.activePlayer]
+    card1 = player.cards[0]
+    card2 = player.cards[1]
+
+    pair = False
+
+    if card1.rank == card2.rank:
+        pair = True
+
+    for card in table.communityCards:
+        if card.rank == card1.rank or card.rank == card2.rank:
+            pair = True
+
+    if pair:
+        return table.minimumBet
+    else:
+        amount = table.minimumBet
+        if amount <= (table.smallBlind * 2 * 4):
+            return amount
+        else:
+            return 0
+
+
 def decide(table: Table) -> Bet:
     # call first strategy
     # strat1_bet = strat_1(table)
-    chips = strat_0(table)
+    # chips = strat_0(table)
+    chips = strat_Willy(table)
     return Bet(chips)

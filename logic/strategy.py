@@ -121,7 +121,7 @@ def strat_Willy(table: Table) -> int:
         return table.minimumBet
     else:
         amount = table.minimumBet
-        if amount <= (table.smallBlind * 3) and amount < player.stack:
+        if amount < player.stack:
             return amount
         else:
             return 0

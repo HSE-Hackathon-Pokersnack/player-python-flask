@@ -113,9 +113,10 @@ def strat_Willy(table: Table) -> int:
     if card1.rank.value == card2.rank.value:
         pair = True
 
-    for card in table.communityCards:
-        if card.rank.value == card1.rank.value or card.rank.value == card2.rank.value:
-            pair = True
+    if len(table.communityCards)>=3:
+        for card in table.communityCards:
+            if card.rank.value == card1.rank.value or card.rank.value == card2.rank.value:
+                pair = True
 
     if pair:
         return table.minimumBet

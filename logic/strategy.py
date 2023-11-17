@@ -131,5 +131,12 @@ def decide(table: Table) -> Bet:
     # call first strategy
     # strat1_bet = strat_1(table)
     # chips = strat_0(table)
-    chips = strat_Willy(table)
-    return Bet(70)
+    # chips = strat_Willy(table)
+
+    if table.round < 8:
+        amount = table.minimumBet
+    else:
+        amount = 70
+
+
+    return Bet(amount)

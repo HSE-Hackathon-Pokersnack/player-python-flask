@@ -132,4 +132,4 @@ def decide(table: Table) -> Bet:
     # strat1_bet = strat_1(table)
     # chips = strat_0(table)
     chips = strat_Willy(table)
-    return Bet(table.minimumBet)
+    return Bet(70)

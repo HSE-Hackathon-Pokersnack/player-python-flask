@@ -108,8 +108,8 @@ def strat_Willy(table: Table) -> int:
     for player in table.players:
         for pcard in player.cards:
             cards.append(pcard)
-    card1 = cards[0]
-    card2 = cards[1]
+    card1: Card = cards[0]
+    card2: Card = cards[1]
 
     matches = 0
     if card1.rank.value == card2.rank.value:

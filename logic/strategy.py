@@ -109,9 +109,12 @@ def strat_Willy(table: Table) -> int:
     card2 = player.cards[1]
 
     matches = 0
-
     if card1.rank.value == card2.rank.value:
         matches += 1
+
+    suits = 0
+    if card1.suit.value == card2.suit.value:
+        suits = 1
 
     if len(table.communityCards) >= 3:
         for card in table.communityCards:
@@ -120,6 +123,14 @@ def strat_Willy(table: Table) -> int:
                 or card.rank.value == card2.rank.value
             ):
                 matches += 1
+            if (
+                card.suit.value == card1.suit.value
+                or card.suit.value == card2.suit.value
+            ):
+                suits += 1
+
+    if suits == 5:
+        return table.minimumBet
 
     if matches > 2:
         return table.minimumBet

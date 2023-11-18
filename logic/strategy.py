@@ -104,9 +104,12 @@ def strat_1(table: Table) -> int:
 
 
 def strat_Willy(table: Table) -> int:
-    player = table.players[table.activePlayer]
-    card1 = player.cards[0]
-    card2 = player.cards[1]
+    cards = []
+    for player in table.players:
+        for pcard in player.cards:
+            cards.append(pcard)
+    card1 = cards[0]
+    card2 = cards[1]
 
     matches = 0
     if card1.rank.value == card2.rank.value:
@@ -140,7 +143,7 @@ def strat_Willy(table: Table) -> int:
         else:
             return table.minimumBet
     else:
-        return 1
+        return 0
         # amount = table.minimumBet
         # if amount+player.bet <= table.smallBlind:
         #     return amount

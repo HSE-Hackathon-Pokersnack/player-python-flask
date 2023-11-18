@@ -108,20 +108,28 @@ def strat_Willy(table: Table) -> int:
     card1 = player.cards[0]
     card2 = player.cards[1]
 
-    pair = False
+    matches = 0
 
     if card1.rank.value == card2.rank.value:
-        pair = True
+        matches += 1
 
-    if len(table.communityCards)>=3:
+    if len(table.communityCards) >= 3:
         for card in table.communityCards:
-            if card.rank.value == card1.rank.value or card.rank.value == card2.rank.value:
-                pair = True
+            if (
+                card.rank.value == card1.rank.value
+                or card.rank.value == card2.rank.value
+            ):
+                matches += 1
 
-    if pair:
+    if matches > 2:
         return table.minimumBet
+    if matches == 1:
+        if int(card1.rank.value) < 10 and int(card2.rank.value) < 10:
+            return 20
+        else:
+            return table.minimumBet
     else:
-        return 0
+        return 1
         # amount = table.minimumBet
         # if amount+player.bet <= table.smallBlind:
         #     return amount
